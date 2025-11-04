@@ -277,58 +277,61 @@
     </div>
   </div>
 
-  <!-- JS -->
-  <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const agreeBox = document.getElementById('agreeTerms');
-    const continueBtn = document.getElementById('continueButton');
-    const razorContainer = document.getElementById('razorContainer');
+ <!-- JavaScript for checkbox logic -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const agreeBox = document.getElementById('agreeTerms');
+  const continueBtn = document.getElementById('continueButton');
+  const razorContainer = document.getElementById('razorContainer');
 
-    continueBtn.disabled = true;
+  continueBtn.disabled = true;
 
-    agreeBox.addEventListener('change', function() {
-      if (this.checked) {
-        continueBtn.style.opacity = 1;
-        continueBtn.style.cursor = 'pointer';
-        continueBtn.disabled = false;
-      } else {
-        continueBtn.style.opacity = 0.6;
-        continueBtn.style.cursor = 'not-allowed';
-        continueBtn.disabled = true;
-        razorContainer.innerHTML = '';
-      }
-    });
-
-    continueBtn.addEventListener('click', function() {
-      if (!agreeBox.checked) {
-        alert('Please agree to the Terms & Conditions first.');
-        return;
-      }
-
-      razorContainer.innerHTML = `
-        <form>
-          <script
-            src="https://cdn.razorpay.com/static/widget/subscription-button.js"
-            data-subscription_button_id="pl_RaULG2xVUIYiKp"
-            data-button_theme="brand-color"
-            async>
-          </script>
-        </form>
-      `;
-
-      continueBtn.style.display = 'none';
-    });
-
-    // Popup
-    const popup = document.getElementById('termsPopup');
-    document.getElementById('openTerms').addEventListener('click', function(e) {
-      e.preventDefault();
-      popup.style.display = 'block';
-    });
-    document.getElementById('closeTerms').addEventListener('click', function() {
-      popup.style.display = 'none';
-    });
+  // Enable or disable Continue button
+  agreeBox.addEventListener('change', function() {
+    if (this.checked) {
+      continueBtn.style.opacity = 1;
+      continueBtn.style.cursor = 'pointer';
+      continueBtn.disabled = false;
+    } else {
+      continueBtn.style.opacity = 0.6;
+      continueBtn.style.cursor = 'not-allowed';
+      continueBtn.disabled = true;
+      razorContainer.innerHTML = ''; // clear Razorpay button
+      continueBtn.style.display = 'block';
+    }
   });
-  </script>
+
+  // Show Razorpay button after Continue is clicked
+  continueBtn.addEventListener('click', function() {
+    if (!agreeBox.checked) {
+      alert('Please agree to the Terms & Conditions first.');
+      return;
+    }
+
+    razorContainer.innerHTML = `
+      <form>
+        <script
+          src="https://cdn.razorpay.com/static/widget/subscription-button.js"
+          data-subscription_button_id="pl_RaULG2xVUIYiKp"
+          data-button_theme="brand-color"
+          async>
+        <\/script>
+      </form>
+    `;
+
+    continueBtn.style.display = 'none'; // hide continue button
+  });
+
+  // Popup open/close logic
+  const popup = document.getElementById('termsPopup');
+  document.getElementById('openTerms').addEventListener('click', function(e) {
+    e.preventDefault();
+    popup.style.display = 'block';
+  });
+  document.getElementById('closeTerms').addEventListener('click', function() {
+    popup.style.display = 'none';
+  });
+});
+</script>
 </body>
 </html>
