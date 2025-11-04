@@ -229,32 +229,21 @@ style="
     </label>
   </div>
 
-  <!-- Continue Button -->
-  <button id="continueButton" type="button" style="
-    background:#f5b800;
-    color:#0a0a0a;
-    border:none;
-    padding:12px 24px;
-    font-size:1rem;
-    border-radius:6px;
-    cursor:not-allowed;
-    opacity:0.6;
-    width:100%;
-    font-weight:bold;
-  ">Continue to Payment</button>
-
- <!-- Razorpay button (hidden until checkbox checked + continue clicked) -->
-<div id="razorWrapper" style="display:none; margin-top:20px;">
-  <!-- Razorpay requires its script directly inside <form> -->
-  <form id="razorForm">
-    <script
-      src="https://cdn.razorpay.com/static/widget/subscription-button.js"
-      data-subscription_button_id="pl_RaULG2xVUIYiKp"
-      data-button_theme="brand-color"
-      async>
-    </script>
-  </form>
-</div>
+ <!-- Continue Button -->
+<button id="continueButton" type="button" style="
+  background:#f5b800;
+  color:#0a0a0a;
+  border:none;
+  padding:12px 24px;
+  font-size:1rem;
+  border-radius:6px;
+  cursor:not-allowed;
+  opacity:0.6;
+  width:100%;
+  font-weight:bold;
+">Continue to Payment</button>
+         <!-- Razorpay placeholder (loads dynamically) -->
+<div id="razorContainer" style="margin-top:20px;"></div>
       </div>
     </div>
   </div>
@@ -315,9 +304,9 @@ style="
 <script>
   const agreeBox = document.getElementById('agreeTerms');
   const continueBtn = document.getElementById('continueButton');
-  const razorWrapper = document.getElementById('razorWrapper');
+  const razorContainer = document.getElementById('razorContainer');
 
-  // Enable / disable Continue button and hide Razorpay if unchecked
+  // Enable / disable Continue button
   agreeBox.addEventListener('change', function() {
     if (this.checked) {
       continueBtn.style.opacity = 1;
@@ -327,29 +316,30 @@ style="
       continueBtn.style.opacity = 0.6;
       continueBtn.style.cursor = 'not-allowed';
       continueBtn.disabled = true;
-      razorWrapper.style.display = 'none';
-      continueBtn.style.display = 'block';
+      razorContainer.innerHTML = ''; // clear button if unchecked
     }
   });
 
-  // Continue → show Razorpay
+  // Load Razorpay dynamically on click
   continueBtn.addEventListener('click', function() {
     if (!agreeBox.checked) {
       alert('Please agree to the Terms & Conditions first.');
       return;
     }
-    razorWrapper.style.display = 'block';
-    continueBtn.style.display = 'none';
-  });
 
-  // Popup open/close logic
-  const popup = document.getElementById('termsPopup');
-  document.getElementById('openTerms').addEventListener('click', function(e) {
-    e.preventDefault();
-    popup.style.display = 'block';
-  });
-  document.getElementById('closeTerms').addEventListener('click', function() {
-    popup.style.display = 'none';
+    // Insert Razorpay widget form dynamically
+    razorContainer.innerHTML = `
+      <form>
+        <script
+          src="https://cdn.razorpay.com/static/widget/subscription-button.js"
+          data-subscription_button_id="pl_RaULG2xVUIYiKp"
+          data-button_theme="brand-color"
+          async>
+        </script>
+      </form>
+    `;
+
+    continueBtn.style.display = 'none';
   });
 </script>
 </body>
