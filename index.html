@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   continueBtn.disabled = true;
 
-  // Enable or disable Continue button
+  // Enable / disable Continue button
   agreeBox.addEventListener('change', function() {
     if (this.checked) {
       continueBtn.style.opacity = 1;
@@ -296,33 +296,32 @@ document.addEventListener("DOMContentLoaded", function() {
       continueBtn.style.opacity = 0.6;
       continueBtn.style.cursor = 'not-allowed';
       continueBtn.disabled = true;
-      razorContainer.innerHTML = ''; // clear Razorpay button
+      razorContainer.innerHTML = '';
       continueBtn.style.display = 'block';
     }
   });
 
-  // Show Razorpay button after Continue is clicked
+  // Show Razorpay after Continue
   continueBtn.addEventListener('click', function() {
     if (!agreeBox.checked) {
       alert('Please agree to the Terms & Conditions first.');
       return;
     }
 
-    razorContainer.innerHTML = `
-      <form>
-        <script
-          src="https://cdn.razorpay.com/static/widget/subscription-button.js"
-          data-subscription_button_id="pl_RaULG2xVUIYiKp"
-          data-button_theme="brand-color"
-          async>
-        <\/script>
-      </form>
-    `;
+    // Create Razorpay <script> dynamically so it executes properly
+    razorContainer.innerHTML = ''; // clear container
+    const form = document.createElement('form');
+    const script = document.createElement('script');
+    script.src = "https://cdn.razorpay.com/static/widget/subscription-button.js";
+    script.dataset.subscription_button_id = "pl_RaULG2xVUIYiKp";
+    script.dataset.button_theme = "brand-color";
+    form.appendChild(script);
+    razorContainer.appendChild(form);
 
-    continueBtn.style.display = 'none'; // hide continue button
+    continueBtn.style.display = 'none';
   });
 
-  // Popup open/close logic
+  // Popup logic
   const popup = document.getElementById('termsPopup');
   document.getElementById('openTerms').addEventListener('click', function(e) {
     e.preventDefault();
