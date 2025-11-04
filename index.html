@@ -313,9 +313,7 @@ document.addEventListener("DOMContentLoaded", function() {
     continueBtn.disabled = true;
     continueBtn.style.cursor = 'not-allowed';
     continueBtn.style.opacity = 0.6;
-
-    // Delay before injecting Razorpay widget
-    setTimeout(() => {
+ 
       const form = document.createElement('form');
       const script = document.createElement('script');
       script.src = "https://cdn.razorpay.com/static/widget/subscription-button.js";
@@ -323,8 +321,7 @@ document.addEventListener("DOMContentLoaded", function() {
       script.dataset.button_theme = "brand-color";
       form.appendChild(script);
       razorContainer.appendChild(form);
-    }, 200);
-
+    
     continueBtn.style.display = 'none';
   });
 
