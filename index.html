@@ -245,15 +245,15 @@ style="
 
  <!-- Razorpay button (hidden until checkbox checked + continue clicked) -->
 <div id="razorWrapper" style="display:none; margin-top:20px;">
-  <!-- Razorpay requires its script directly inside <form> -->
-  <form id="razorForm">
-    <script
-      src="https://cdn.razorpay.com/static/widget/subscription-button.js"
-      data-subscription_button_id="pl_RaULG2xVUIYiKp"
-      data-button_theme="brand-color"
-      async>
-    </script>
-  </form>
+<!-- Razorpay form (hidden by script logic, not by wrapper) -->
+<form id="razorForm" style="margin-top:20px; display:none;">
+  <script
+    src="https://cdn.razorpay.com/static/widget/subscription-button.js"
+    data-subscription_button_id="pl_RaULG2xVUIYiKp"
+    data-button_theme="brand-color"
+    async>
+  </script>
+</form>
 </div>
       </div>
     </div>
@@ -382,9 +382,9 @@ style="
 <script>
   const agreeBox = document.getElementById('agreeTerms');
   const continueBtn = document.getElementById('continueButton');
-  const razorWrapper = document.getElementById('razorWrapper');
+  const razorForm = document.getElementById('razorForm');
 
-  // Enable / disable Continue button and hide Razorpay if unchecked
+  // Enable / disable Continue button
   agreeBox.addEventListener('change', function() {
     if (this.checked) {
       continueBtn.style.opacity = 1;
@@ -394,19 +394,20 @@ style="
       continueBtn.style.opacity = 0.6;
       continueBtn.style.cursor = 'not-allowed';
       continueBtn.disabled = true;
-      razorWrapper.style.display = 'none';
+      razorForm.style.display = 'none';
       continueBtn.style.display = 'block';
     }
   });
 
-  // Continue → show Razorpay
+  // Continue → show Razorpay form
   continueBtn.addEventListener('click', function() {
     if (!agreeBox.checked) {
       alert('Please agree to the Terms & Conditions first.');
       return;
     }
-    razorWrapper.style.display = 'block';
+    document.getElementById('agreeTerms').parentElement.style.display = 'none'; // optional clean mode
     continueBtn.style.display = 'none';
+    razorForm.style.display = 'block';
   });
 
   // Popup open/close logic
