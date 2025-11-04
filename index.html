@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join Game & Relations Pro Community</title>
+  <link rel="preload" href="https://cdn.razorpay.com/static/widget/subscription-button.js" as="script">
   <style>
     body {
       margin: 0;
@@ -301,31 +302,31 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // Show Razorpay and lock checkbox
+  // Show Razorpay immediately (no delay) and lock checkbox
   continueBtn.addEventListener('click', function() {
     if (!agreeBox.checked) {
       alert('Please agree to the Terms & Conditions first.');
       return;
     }
 
-    // Disable checkbox once accepted
     agreeBox.disabled = true;
     continueBtn.disabled = true;
     continueBtn.style.cursor = 'not-allowed';
     continueBtn.style.opacity = 0.6;
- 
-      const form = document.createElement('form');
-      const script = document.createElement('script');
-      script.src = "https://cdn.razorpay.com/static/widget/subscription-button.js";
-      script.dataset.subscription_button_id = "pl_RaULG2xVUIYiKp";
-      script.dataset.button_theme = "brand-color";
-      form.appendChild(script);
-      razorContainer.appendChild(form);
-    
+
+    // Inject Razorpay script immediately
+    const form = document.createElement('form');
+    const script = document.createElement('script');
+    script.src = "https://cdn.razorpay.com/static/widget/subscription-button.js";
+    script.dataset.subscription_button_id = "pl_RaULG2xVUIYiKp";
+    script.dataset.button_theme = "brand-color";
+    form.appendChild(script);
+    razorContainer.appendChild(form);
+
     continueBtn.style.display = 'none';
   });
 
-  // Popup logic
+  // Popup open/close logic
   const popup = document.getElementById('termsPopup');
   document.getElementById('openTerms').addEventListener('click', function(e) {
     e.preventDefault();
@@ -336,5 +337,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 </script>
+  <!-- ✅ Keep this AFTER your main script -->
+<script src="https://cdn.razorpay.com/static/widget/subscription-button.js" async defer></script>
 </body>
 </html>
