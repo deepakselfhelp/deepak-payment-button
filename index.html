@@ -243,17 +243,18 @@ style="
     font-weight:bold;
   ">Continue to Payment</button>
 
-  <!-- Razorpay button (hidden until checkbox checked + continue clicked) -->
- <div id="razorContainer" style="display:none; margin-top:20px;">
-  <form>
-    <script src="https://cdn.razorpay.com/static/widget/subscription-button.js"
+ <!-- Razorpay button (hidden until checkbox checked + continue clicked) -->
+<div id="razorWrapper" style="display:none; margin-top:20px;">
+  <!-- Razorpay requires its script directly inside <form> -->
+  <form id="razorForm">
+    <script
+      src="https://cdn.razorpay.com/static/widget/subscription-button.js"
       data-subscription_button_id="pl_RaULG2xVUIYiKp"
       data-button_theme="brand-color"
       async>
     </script>
   </form>
 </div>
-</form>
       </div>
     </div>
   </div>
@@ -314,8 +315,9 @@ style="
 <script>
   const agreeBox = document.getElementById('agreeTerms');
   const continueBtn = document.getElementById('continueButton');
-  const razorContainer = document.getElementById('razorContainer');
+  const razorWrapper = document.getElementById('razorWrapper');
 
+  // Enable / disable Continue button and hide Razorpay if unchecked
   agreeBox.addEventListener('change', function() {
     if (this.checked) {
       continueBtn.style.opacity = 1;
@@ -325,18 +327,22 @@ style="
       continueBtn.style.opacity = 0.6;
       continueBtn.style.cursor = 'not-allowed';
       continueBtn.disabled = true;
+      razorWrapper.style.display = 'none';
+      continueBtn.style.display = 'block';
     }
   });
 
+  // Continue → show Razorpay
   continueBtn.addEventListener('click', function() {
     if (!agreeBox.checked) {
       alert('Please agree to the Terms & Conditions first.');
       return;
     }
-    razorContainer.style.display = 'block';
+    razorWrapper.style.display = 'block';
     continueBtn.style.display = 'none';
   });
 
+  // Popup open/close logic
   const popup = document.getElementById('termsPopup');
   document.getElementById('openTerms').addEventListener('click', function(e) {
     e.preventDefault();
