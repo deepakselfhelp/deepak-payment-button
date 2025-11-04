@@ -301,22 +301,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // Show Razorpay after Continue
+  // Show Razorpay and lock checkbox
   continueBtn.addEventListener('click', function() {
     if (!agreeBox.checked) {
       alert('Please agree to the Terms & Conditions first.');
       return;
     }
 
-    // Create Razorpay <script> dynamically so it executes properly
-    razorContainer.innerHTML = ''; // clear container
-    const form = document.createElement('form');
-    const script = document.createElement('script');
-    script.src = "https://cdn.razorpay.com/static/widget/subscription-button.js";
-    script.dataset.subscription_button_id = "pl_RaULG2xVUIYiKp";
-    script.dataset.button_theme = "brand-color";
-    form.appendChild(script);
-    razorContainer.appendChild(form);
+    // Disable checkbox once accepted
+    agreeBox.disabled = true;
+    continueBtn.disabled = true;
+    continueBtn.style.cursor = 'not-allowed';
+    continueBtn.style.opacity = 0.6;
+
+    // Delay before injecting Razorpay widget
+    setTimeout(() => {
+      const form = document.createElement('form');
+      const script = document.createElement('script');
+      script.src = "https://cdn.razorpay.com/static/widget/subscription-button.js";
+      script.dataset.subscription_button_id = "pl_RaULG2xVUIYiKp";
+      script.dataset.button_theme = "brand-color";
+      form.appendChild(script);
+      razorContainer.appendChild(form);
+    }, 200);
 
     continueBtn.style.display = 'none';
   });
