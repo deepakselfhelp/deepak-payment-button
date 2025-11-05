@@ -14,6 +14,7 @@
 
 .container {
   display: flex;
+  flex-direction: row-reverse; /* default = show right div (checkout) on right side */
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -21,23 +22,6 @@
   margin: 0 auto;
   padding: 40px 20px;
   gap: 30px;
-}
-
-/* ✅ Default Desktop Layout */
-.left {
-  flex: 1 1 55%;
-  order: 1 !important;
-  box-sizing: border-box;
-}
-
-.right {
-  flex: 1 1 40%;
-  order: 2 !important;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
 }
     h1 {
       font-size: 32px;
@@ -120,24 +104,23 @@
       text-decoration: none;
     }
 
-   /* ---------- Mobile Layout Fix ---------- */
-@media screen and (max-width: 768px) {
+  /* ---------- Mobile Layout Fix ---------- */
+@media (max-width: 768px) {
   .container {
-    flex-direction: column;
+    flex-direction: column; /* stack vertically on mobile */
     align-items: center;
     text-align: center;
     padding: 20px;
   }
 
-  /* 🔥 On mobile: payment first */
   .right {
-    order: -1 !important;
     width: 100%;
+    order: -1; /* show payment first */
   }
 
   .left {
-    order: 2 !important;
     width: 100%;
+    order: 2;
   }
 
   .checkout-box {
