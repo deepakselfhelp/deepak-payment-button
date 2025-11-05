@@ -97,41 +97,42 @@
     }
 
     /* ---------- Mobile Layout Fix ---------- */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 20px;
-      }
+ /* ---------- Mobile Layout Fix ---------- */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
 
-      /* 🔥 Reorder: show RIGHT side (payment box) first on mobile */
-      .right {
-        order: 1;
-        width: 100%;
-      }
+  /* ✅ On mobile: show payment (right) first */
+  .right {
+    order: -1;
+    width: 100%;
+  }
 
-      .left {
-        order: 2;
-        width: 100%;
-      }
+  .left {
+    order: 2;
+    width: 100%;
+  }
 
-      .checkout-box {
-        width: 95%;
-        margin: 0 auto 25px;
-      }
+  .checkout-box {
+    width: 95%;
+    margin: 0 auto 25px;
+  }
 
-      .hero {
-        width: 95%;
-        max-width: 400px;
-        margin: 20px auto;
-      }
+  .hero {
+    width: 95%;
+    max-width: 400px;
+    margin: 20px auto;
+  }
 
-      ul {
-        text-align: left;
-        display: inline-block;
-      }
-    }
+  ul {
+    text-align: left;
+    display: inline-block;
+  }
+}
   </style>
 </head>
 <body>
@@ -146,7 +147,8 @@
     <div class="right">
       <div class="checkout-box">
         <h2>💳 Pay Securely</h2>
-        <p>Choose your plan and complete checkout below:</p>
+        <p>Select your plan and complete checkout below:</p>
+        <p>recommended to user same email at checkout what you have used in mighty network</p>
         <form>
           <script
             src="https://cdn.razorpay.com/static/widget/subscription-button.js"
