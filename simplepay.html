@@ -96,8 +96,7 @@
       text-decoration: none;
     }
 
-    /* ---------- Mobile Layout Fix ---------- */
- /* ---------- Mobile Layout Fix ---------- */
+   /* ---------- Mobile Layout Fix ---------- */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -106,15 +105,14 @@
     padding: 20px;
   }
 
-  /* ✅ On mobile: show payment (right) first */
   .right {
-    order: -1;
     width: 100%;
+    order: -1; /* Payment first on mobile */
   }
 
   .left {
-    order: 2;
     width: 100%;
+    order: 2;
   }
 
   .checkout-box {
