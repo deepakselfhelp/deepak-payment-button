@@ -15,7 +15,7 @@
     .container {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       flex-wrap: wrap;
       max-width: 1200px;
       margin: 0 auto;
@@ -33,7 +33,8 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      align-items: center;
     }
 
     h1 {
@@ -80,29 +81,7 @@
       text-align: center;
       box-shadow: 0 0 25px rgba(245,184,0,0.25);
       margin-top: 20px;
-    }
-
-    .testimonials {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 40px;
-    }
-
-    .testimonial {
-      flex: 1 1 260px;
-      background: #111;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(245,184,0,0.15);
-    }
-
-    .testimonial img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin-bottom: 10px;
+      position: relative;
     }
 
     footer {
@@ -126,46 +105,31 @@
         padding: 20px;
       }
 
-      .left, .right {
+      /* 🔥 Reorder: show RIGHT side (payment box) first on mobile */
+      .right {
+        order: 1;
         width: 100%;
+      }
+
+      .left {
+        order: 2;
+        width: 100%;
+      }
+
+      .checkout-box {
+        width: 95%;
+        margin: 0 auto 25px;
+      }
+
+      .hero {
+        width: 95%;
+        max-width: 400px;
+        margin: 20px auto;
       }
 
       ul {
         text-align: left;
         display: inline-block;
-      }
-
-      .hero {
-        width: 95% !important;
-        max-width: 400px !important;
-        margin: 20px auto;
-      }
-
-      .checkout-box {
-        margin-top: 30px !important;
-        width: 95%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      img[alt="Deepak Logo"] {
-        width: 250px !important;
-        height: auto;
-        filter: drop-shadow(0 0 6px rgba(245,184,0,0.4));
-      }
-
-      /* ✅ Reorder elements on mobile */
-      .left h1,
-      .left p,
-      .left img.hero {
-        order: 1;
-      }
-      .right {
-        order: 2; /* Razorpay section appears after hero */
-      }
-      .left ul,
-      .left .testimonials {
-        order: 3;
       }
     }
   </style>
@@ -178,6 +142,22 @@
   </div>
 
   <div class="container">
+    <!-- RIGHT SIDE (CHECKOUT) -->
+    <div class="right">
+      <div class="checkout-box">
+        <h2>💳 Pay Securely</h2>
+        <p>Choose your plan and complete checkout below:</p>
+        <form>
+          <script
+            src="https://cdn.razorpay.com/static/widget/subscription-button.js"
+            data-subscription_button_id="pl_RaULG2xVUIYiKp"
+            data-button_theme="brand-color"
+            async>
+          </script>
+        </form>
+      </div>
+    </div>
+
     <!-- LEFT SIDE -->
     <div class="left">
       <h1>🔥 Join Game & Relations Pro Community</h1>
@@ -203,22 +183,6 @@
           <p>“The only coach who shows real proof and transformation.”</p>
           <strong>— Michael, London</strong>
         </div>
-      </div>
-    </div>
-
-    <!-- RIGHT SIDE (CHECKOUT) -->
-    <div class="right">
-      <div class="checkout-box">
-        <h2>💳 Pay Securely</h2>
-        <p>Choose your plan and complete checkout below:</p>
-        <form>
-          <script
-            src="https://cdn.razorpay.com/static/widget/subscription-button.js"
-            data-subscription_button_id="pl_RaULG2xVUIYiKp"
-            data-button_theme="brand-color"
-            async>
-          </script>
-        </form>
       </div>
     </div>
   </div>
