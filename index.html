@@ -12,7 +12,7 @@
       color: #fff;
     }
 
-    .container {
+.container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -23,16 +23,16 @@
   gap: 30px;
 }
 
-/* 🟢 Default (desktop) layout: left first, right second */
+/* ✅ Default Desktop Layout */
 .left {
   flex: 1 1 55%;
-  order: 1;
+  order: 1 !important;
   box-sizing: border-box;
 }
 
 .right {
   flex: 1 1 40%;
-  order: 2;
+  order: 2 !important;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -120,8 +120,8 @@
       text-decoration: none;
     }
 
-    /* ---------- Mobile Layout Fix ---------- */
-@media (max-width: 768px) {
+   /* ---------- Mobile Layout Fix ---------- */
+@media screen and (max-width: 768px) {
   .container {
     flex-direction: column;
     align-items: center;
