@@ -12,17 +12,30 @@
       color: #fff;
     }
 
-.container {
-  display: flex;
-  flex-direction: row-reverse; /* default = show right div (checkout) on right side */
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  gap: 30px;
-}
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      gap: 30px;
+    }
+
+    .left {
+      flex: 1 1 55%;
+      box-sizing: border-box;
+    }
+
+    .right {
+      flex: 1 1 40%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     h1 {
       font-size: 32px;
       color: #f5b800;
@@ -104,41 +117,42 @@
       text-decoration: none;
     }
 
-  /* ---------- Mobile Layout Fix ---------- */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column; /* stack vertically on mobile */
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-  }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
 
-  .right {
-    width: 100%;
-    order: -1; /* show payment first */
-  }
+      .left, .right {
+        width: 100%;
+      }
 
-  .left {
-    width: 100%;
-    order: 2;
-  }
+      ul {
+        text-align: left;
+        display: inline-block;
+      }
 
-  .checkout-box {
-    width: 95%;
-    margin: 0 auto 25px;
-  }
+      .hero {
+        width: 95% !important;
+        max-width: 400px !important;
+        margin: 20px auto;
+      }
 
-  .hero {
-    width: 95%;
-    max-width: 400px;
-    margin: 20px auto;
-  }
+      .checkout-box {
+        margin-top: 30px !important;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+      }
 
-  ul {
-    text-align: left;
-    display: inline-block;
-  }
-}
+      img[alt="Deepak Logo"] {
+        width: 250px !important;
+        height: auto;
+        filter: drop-shadow(0 0 6px rgba(245,184,0,0.4));
+      }
+    }
   </style>
 </head>
 <body>
